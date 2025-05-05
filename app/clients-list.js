@@ -1,15 +1,15 @@
-import {
-  SafeAreaView,
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
-import Button from "../components/Button.js";
-import ClientListCard from "../components/ClientListCard.js";
-import Search from "../components/Search.js";
 import { useRouter } from "expo-router";
+import {
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import ClientListCard from "../components/ClientListCard.js";
+import CustomButton from "../components/CustomButton.js";
+import Search from "../components/Search.js";
 
 export default function ClientsList() {
   const router = useRouter();
@@ -65,9 +65,9 @@ export default function ClientsList() {
           )}
           keyExtractor={(item) => item.id}
         />
-        <Button
+        <CustomButton
           title="Добавить нового"
-          variant="primary"
+          isActive
           onPress={() => router.push("/create-client")}
         />
       </View>

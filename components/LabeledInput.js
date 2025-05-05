@@ -1,17 +1,23 @@
 import React from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function LabeledInput(props) {
+export default function LabeledInput({
+  inputTitle,
+  onChangeText,
+  value,
+  placeholder,
+  multiline,
+}) {
   return (
     <View>
-      <Text style={styles.inputTitle}>{props.inputTitle}</Text>
+      <Text style={styles.inputTitle}>{inputTitle}</Text>
       <TextInput
         style={styles.input}
-        onChangeText={props.onChangeText}
-        value={props.value}
-        placeholder={props.placeholder}
-        multiline={props.multiline}
-        numberOfLines={props.multiline ? 4 : 1}
+        onChangeText={onChangeText}
+        value={value}
+        placeholder={placeholder}
+        multiline={multiline}
+        numberOfLines={multiline ? 4 : 1}
       />
     </View>
   );

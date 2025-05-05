@@ -1,18 +1,19 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
-export default function ClientListCard(props) {
+export default function ClientListCard({
+  user_avatar,
+  isActive,
+  fullname,
+  city,
+}) {
   return (
     // general
     <View style={styles.container}>
       {/* left start */}
       <View style={styles.leftContainer}>
         <View style={styles.imageContainer}>
-          <Image source={props.user_avatar} style={styles.userAvatar}></Image>
-          {/* <Image
-            source={require("../assets/images/user_avatar_1.png")}
-            style={styles.userAvatar}
-          ></Image> */}
-          {props.isActive && (
+          <Image source={user_avatar} style={styles.userAvatar}></Image>
+          {isActive && (
             <Image
               source={require("../assets/icons/Ellipse.png")}
               style={styles.statusIndicator}
@@ -20,8 +21,8 @@ export default function ClientListCard(props) {
           )}
         </View>
         <View>
-          <Text style={styles.textFullname}>{props.fullname}</Text>
-          <Text style={styles.textCity}>{props.city}</Text>
+          <Text style={styles.textFullname}>{fullname}</Text>
+          <Text style={styles.textCity}>{city}</Text>
         </View>
       </View>
       {/* left end */}

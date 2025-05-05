@@ -1,15 +1,15 @@
-import { View, Image, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function TopNavigation(props) {
+export default function TopNavigation({ onPress, isEditable }) {
   return (
     <View style={styles.imageContainer}>
-      <TouchableOpacity style={styles.button} onPress={props.onPress}>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
         <Image
           source={require("../assets/icons/Back.png")}
           style={styles.icon}
         />
       </TouchableOpacity>
-      {props.isEditable ? (
+      {isEditable ? (
         <TouchableOpacity style={styles.button}>
           <Image
             source={require("../assets/icons/Edit.png")}

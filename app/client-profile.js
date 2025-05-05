@@ -1,13 +1,13 @@
+import { useLocalSearchParams, useRouter } from "expo-router";
 import {
+  Image,
   SafeAreaView,
   ScrollView,
-  View,
-  Image,
-  Text,
   StyleSheet,
+  Text,
+  View,
 } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import Button from "../components/Button.js";
+import CustomButton from "../components/CustomButton.js";
 import TopNavigation from "../components/TopNavigation.js";
 
 export default function ClientProfile() {
@@ -39,7 +39,7 @@ export default function ClientProfile() {
   const client = DATA.find((item) => item.id === id);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.safeAreaContainer}>
       <ScrollView style={styles.container}>
         <TopNavigation
           isEditable={true}
@@ -51,14 +51,14 @@ export default function ClientProfile() {
           <Text style={[styles.regularText, styles.h3]}>{client.city}</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="Чат" variant="secondary" style={{ flex: 1 }} />
-          <Button title="Звонок" variant="primary" style={{ flex: 1 }} />
+          <CustomButton title="Чат" isActive={false} style={{ flex: 1 }} />
+          <CustomButton title="Звонок" isActive style={{ flex: 1 }} />
         </View>
         <Text style={styles.title}>Биография</Text>
         <Text style={styles.regularText}>{client.biography}</Text>
-        <Button
+        <CustomButton
           title="Показать больше "
-          variant="secondary"
+          isActive={false}
           style={styles.button}
         />
       </ScrollView>
@@ -67,11 +67,13 @@ export default function ClientProfile() {
 }
 
 const styles = StyleSheet.create({
+  safeAreaContainer: {
+    flex: 1,
+  },
   container: {
     width: "100%",
     flexDirection: "column",
     paddingHorizontal: 24,
-    flex: 1,
   },
   userDetailsContainer: {
     display: "flex",

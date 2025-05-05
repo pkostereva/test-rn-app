@@ -1,16 +1,16 @@
-import { useState } from "react";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import {
-  SafeAreaView,
-  ScrollView,
-  View,
-  StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
 } from "react-native";
-import TopNavigation from "../components/TopNavigation.js";
+import CustomButton from "../components/CustomButton.js";
 import LabeledInput from "../components/LabeledInput.js";
-import Button from "../components/Button.js";
+import TopNavigation from "../components/TopNavigation.js";
 
 const formStructure = [
   { id: "photo", label: "Фото", placeholder: "Введите ссылку на фото" },
@@ -44,9 +44,9 @@ export default function CreateClient() {
   const router = useRouter();
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
-        style={styles.container}
+        style={styles.keyboardAvoidingContainer}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={80} // для iOS, на Android можно оставить 0
       >
@@ -69,7 +69,7 @@ export default function CreateClient() {
           </ScrollView>
 
           <View style={styles.buttonWrapper}>
-            <Button title="Добавить" variant="primary" />
+            <CustomButton title="Добавить" isActive />
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -80,7 +80,9 @@ export default function CreateClient() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+  },
+  keyboardAvoidingContainer: {
+    flex: 1,
   },
   content: {
     flex: 1,

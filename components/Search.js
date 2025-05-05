@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, TextInput, StyleSheet } from "react-native";
+import { Image, StyleSheet, TextInput, View } from "react-native";
 
 export default function Search() {
   const [text, onChangeText] = React.useState("Поиск");
