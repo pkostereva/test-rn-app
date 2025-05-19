@@ -10,6 +10,7 @@ import {
 import CustomButton from "../components/CustomButton.js";
 import LabeledInput from "../components/LabeledInput.js";
 import { useNavigation } from "@react-navigation/native";
+import { getData, storeData } from "../utils/storage";
 
 const formStructure = [
   { id: "photo", label: "Фото", placeholder: "Введите ссылку на фото" },
@@ -39,6 +40,7 @@ export default function ClientForm({ route }) {
     biography: "",
   };
 
+  const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState({
     id: clientData.id ?? "",
     avatar: clientData.avatar ?? "",
@@ -50,6 +52,25 @@ export default function ClientForm({ route }) {
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const onPressButton = async () => {
+    const existingClients = (await getData("clients")) || [];
+    if (formData.id) {
+      // Обновление клиента
+      const updatedClients = existingClients.map((item) =>
+        item.id === formData.id ? formData : item
+      );
+      await storeData("clients", updatedClients);
+    } else {
+      // Добавление нового клиента
+      const newId = (existingClients.length + 1).toString();
+      const newAvatar =
+        (clientData.avatar ??= require("../assets/images/placeholder.png"));
+      const newClient = { ...formData, id: newId, avatar: newAvatar };
+      const updatedClients = [...existingClients, newClient];
+      await storeData("clients", updatedClients);
+    }
   };
 
   return (
@@ -74,11 +95,14 @@ export default function ClientForm({ route }) {
           </ScrollView>
           <View style={styles.buttonWrapper}>
             <CustomButton
-              title="Сохранить"
-              isActive
-              onPress={() =>
-                navigation.navigate("ClientsList", { clientData: formData })
-              }
+              title={isSaving ? "Сохраняю..." : "Сохранить"}
+              isActive={!isSaving}
+              onPress={async () => {
+                setIsSaving(true);
+                await onPressButton();
+                setIsSaving(false);
+                navigation.goBack();
+              }}
             />
           </View>
         </View>
